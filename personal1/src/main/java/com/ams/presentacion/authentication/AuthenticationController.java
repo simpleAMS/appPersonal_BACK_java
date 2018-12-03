@@ -34,8 +34,11 @@ public class AuthenticationController {
 
 		authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(appUser.getUsername(), appUser.getPassword()));
+		/*
 		final User user = userService.findOne(appUser.getUsername());
 		final String token = jwtTokenUtil.generateToken(user);
 		return new RequestResponse(200, "success", new AuthToken(token, user.getUsername()));
+		*/
+		return new RequestResponse(200, "success", null);
 	}
 }
