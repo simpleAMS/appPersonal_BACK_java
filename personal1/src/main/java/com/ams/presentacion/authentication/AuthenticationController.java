@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.ams.presentacion.User.User;
+ 
+import com.ams.presentacion.User.UserDto;
 import com.ams.presentacion.User.UserService;
 import com.ams.presentacion.common.RequestResponse;
 import com.ams.presentacion.security.JwtTokenUtil;
@@ -31,14 +31,10 @@ public class AuthenticationController {
 
 	@RequestMapping(value = "/generate-token", method = RequestMethod.POST)
 	public RequestResponse register(@RequestBody ApplicationUser appUser) throws AuthenticationException {
-
 		authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(appUser.getUsername(), appUser.getPassword()));
-		/*
-		final User user = userService.findOne(appUser.getUsername());
-		final String token = jwtTokenUtil.generateToken(user);
-		return new RequestResponse(200, "success", new AuthToken(token, user.getUsername()));
-		*/
-		return new RequestResponse(200, "success", null);
+		final UserDto userDto = userService.findByUsername(appUser.getUsername());
+		final String token = jwtTokenUtil.generateToken(userDto);
+		return new RequestResponse(200, "success", new AuthToken(token, userDto.getUsername()));
 	}
 }
