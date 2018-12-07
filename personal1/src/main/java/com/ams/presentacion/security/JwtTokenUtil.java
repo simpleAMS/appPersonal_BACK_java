@@ -6,14 +6,17 @@ import java.util.function.Function;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import com.ams.presentacion.User.User;
+import com.ams.presentacion.User.UserDto;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @SuppressWarnings("serial")
+@Component
 public class JwtTokenUtil implements Serializable{
 
 	//Creador
@@ -47,7 +50,7 @@ public class JwtTokenUtil implements Serializable{
         return expiration.before(new Date());
     }
 
-    public String generateToken(User user) {
+    public String generateToken(UserDto user) {
         return doGenerateToken(user.getUsername());
     }
 

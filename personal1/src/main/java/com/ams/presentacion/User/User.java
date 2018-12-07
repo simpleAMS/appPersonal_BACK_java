@@ -7,24 +7,39 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
-import org.springframework.data.annotation.Id;
+import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity
+@Entity(name = "UserApp")
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column
 	private String username;
+
 	@Column(name = "passwd")
 	@JsonIgnore
 	private String password;
-	@Column
+
+	@Column(nullable=true)
 	private Date lastConnection;
-	@Column
+
+	@Column(nullable=true)
 	private int connectionNumber;
+
+	protected User() {
+	};
+
+	public User(String username, String password, Date lastConnection, int connectionNumber) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.lastConnection = lastConnection;
+		this.connectionNumber = connectionNumber;
+	}
 
 	public String getUsername() {
 		return username;

@@ -1,21 +1,25 @@
 package com.ams.presentacion.technology;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-
-import org.springframework.data.annotation.Id;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Technology {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
-	
+	@Column
 	String name;
+	@Column
 	String subtitle;
+	@Column
 	String description;
-	String img;
+	@Column
+	byte[] img;
 	
 	public int getId() {
 		return id;
@@ -41,10 +45,10 @@ public class Technology {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getImg() {
+	public byte[] getImg() {
 		return img;
 	}
-	public void setImg(String img) {
+	public void setImg(byte[] img) {
 		this.img = img;
 	}
 

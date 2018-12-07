@@ -3,14 +3,16 @@ package com.ams.presentacion.User;
 import java.util.List;
 
 public interface IUserService {
-	
-	User save(UserDto user);
 
-	List<User> findAll();
+	UserDto save(UserDto dto);
+
+	List<UserDto> findAll();
 
 	void delete(int id);
 
-	User findById(int id);
+	UserDto findById(int id);
 
-	UserDto update(UserDto userDto);
+	UserDto update(UserDto dto);
+
+	UserDto findByUsername(String username);
 }

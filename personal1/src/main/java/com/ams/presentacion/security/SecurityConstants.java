@@ -8,7 +8,7 @@ public class SecurityConstants {
 
 	// JWT
 	//Clave de acceso
-	public static final String SIGNING_KEY = "1234";
+	public static final String SIGNING_KEY = "admin";
 	
 	//Tiempo de expiracion del token
 	public static final long TOKEN_EXPIRATION_TIME = 604800000; // 7 dias
