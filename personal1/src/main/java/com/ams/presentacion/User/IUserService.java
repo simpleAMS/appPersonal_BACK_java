@@ -4,15 +4,15 @@ import java.util.List;
 
 public interface IUserService {
 
-	UserDto save(UserDto userDto);
+	UserDto save(UserDto dto);
 
-	List<User> findAll();
+	List<UserDto> findAll();
 
 	void delete(int id);
 
 	UserDto findById(int id);
 
-	UserDto update(UserDto userDto);
+	UserDto update(UserDto dto);
 
 	UserDto findByUsername(String username);
 }

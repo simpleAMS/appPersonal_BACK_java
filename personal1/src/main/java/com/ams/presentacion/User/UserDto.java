@@ -2,10 +2,6 @@ package com.ams.presentacion.User;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class UserDto {
 
 	private int id;
@@ -48,6 +44,14 @@ public class UserDto {
 
 	public void setConnectionNumber(int connectionNumber) {
 		this.connectionNumber = connectionNumber;
+	}
+
+	public Date getLastConnection() {
+		return lastConnection;
+	}
+
+	public void setLastConnection(Date lastConnection) {
+		this.lastConnection = lastConnection;
 	}
 	
 	
