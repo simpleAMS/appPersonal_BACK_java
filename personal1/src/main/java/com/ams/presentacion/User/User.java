@@ -8,10 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name = "UserApp")
+@Entity
+@Table(name="appuser")
 public class User {
 
 	@Id
@@ -20,16 +22,15 @@ public class User {
 	@Column
 	private String username;
 
-	@Column(name = "passwd")
 	@JsonIgnore
 	private String password;
-
-	@Column(nullable=true)
+/*
+	@Column(nullable = true)
 	private Date lastConnection;
 
-	@Column(nullable=true)
+	@Column(nullable = true)
 	private int connectionNumber;
-
+*/
 	protected User() {
 	};
 
@@ -37,8 +38,8 @@ public class User {
 		super();
 		this.username = username;
 		this.password = password;
-		this.lastConnection = lastConnection;
-		this.connectionNumber = connectionNumber;
+		//this.lastConnection = lastConnection;
+		//this.connectionNumber = connectionNumber;
 	}
 
 	public String getUsername() {
@@ -56,7 +57,7 @@ public class User {
 	public void setPassword(String passwd) {
 		this.password = passwd;
 	}
-
+/*
 	public Date getLastConnection() {
 		return lastConnection;
 	}
@@ -72,5 +73,5 @@ public class User {
 	public void setConnectionNumber(int connectionNumber) {
 		this.connectionNumber = connectionNumber;
 	}
-
+	*/
 }
