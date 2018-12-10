@@ -1,4 +1,4 @@
-package com.ams.presentacion.User;
+package com.ams.presentacion.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +17,11 @@ public class UserController {
 
 	@GetMapping("/{id}")
 	public RequestResponse getUserById(@PathVariable int id) {
-		return new RequestResponse(200, "Perfecto: ", userService.findById(id));
+		return new RequestResponse(200, "Usuario: ", userService.findById(id));
+	}
+	
+	@GetMapping("")
+	public RequestResponse getUsers() {
+		return new RequestResponse(200, "Usuarios: ", userService.findAll());
 	}
 }

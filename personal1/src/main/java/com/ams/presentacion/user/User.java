@@ -1,4 +1,4 @@
-package com.ams.presentacion.User;
+package com.ams.presentacion.user;
 
 import java.util.Date;
 
@@ -24,13 +24,12 @@ public class User {
 
 	@JsonIgnore
 	private String password;
-/*
+	
 	@Column(nullable = true)
 	private Date lastConnection;
 
 	@Column(nullable = true)
-	private int connectionNumber;
-*/
+	private Integer connectionNumber;
 	protected User() {
 	};
 
@@ -38,8 +37,8 @@ public class User {
 		super();
 		this.username = username;
 		this.password = password;
-		//this.lastConnection = lastConnection;
-		//this.connectionNumber = connectionNumber;
+		this.lastConnection = lastConnection;
+		this.connectionNumber = connectionNumber;
 	}
 
 	public String getUsername() {
@@ -57,7 +56,7 @@ public class User {
 	public void setPassword(String passwd) {
 		this.password = passwd;
 	}
-/*
+
 	public Date getLastConnection() {
 		return lastConnection;
 	}
@@ -73,5 +72,5 @@ public class User {
 	public void setConnectionNumber(int connectionNumber) {
 		this.connectionNumber = connectionNumber;
 	}
-	*/
+	
 }

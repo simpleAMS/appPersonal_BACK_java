@@ -2,10 +2,9 @@ package com.ams.presentacion.technology;
 
 import org.springframework.web.bind.annotation.*;
 
-import ch.qos.logback.classic.Logger;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/technologies")
 public class TechnologyController {
 	
 	//TODO: Implementar loggin
@@ -22,7 +21,7 @@ public class TechnologyController {
 	}
 */
 	
-	@RequestMapping("/")
+	@RequestMapping("/prueba")
 	String prueba() {
 		return "Llamada correcta";
 	}
@@ -41,6 +40,7 @@ public class TechnologyController {
 
 	@RequestMapping("/technology/technologies")
 	void getTechnologies(Technology tech) {
+		
 	}
 
 }

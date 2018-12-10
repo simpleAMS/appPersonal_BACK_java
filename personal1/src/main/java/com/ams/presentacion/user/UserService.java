@@ -1,4 +1,4 @@
-package com.ams.presentacion.User;
+package com.ams.presentacion.user;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,8 +12,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 
 @Service(value = "userService")
 public class UserService implements IUserService, UserDetailsService {
@@ -23,8 +23,14 @@ public class UserService implements IUserService, UserDetailsService {
 	@Autowired
 	UserDao userDao;
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	
 	@Override
 	public UserDto save(UserDto dto) {
+		//Encrypt password
+		dto.setPassword(passwordEncoder.encode(dto.getPassword()));
 		User entity = convertToEntity(dto);
 		entity = userDao.save(entity);
 		return convertToDto(entity);
@@ -61,9 +67,9 @@ public class UserService implements IUserService, UserDetailsService {
 	}
 
 	@Override
-	public UserDto findByUsername(String username) {
+	public User findByUsername(String username) {
 		Optional<User> optionalUser = userDao.findByUsername(username);
-		return optionalUser.isPresent() ? convertToDto(optionalUser.get()) : null;
+		return optionalUser.isPresent() ? optionalUser.get() : null;
 	}
 
 	@Override
@@ -89,7 +95,7 @@ public class UserService implements IUserService, UserDetailsService {
 
 	private User convertToEntity(UserDto postDto) throws ParseException {
 		User user = modelMapper.map(postDto, User.class);
-
 		return user;
 	}
+
 }

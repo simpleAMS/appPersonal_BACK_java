@@ -1,4 +1,4 @@
-package com.ams.presentacion.User;
+package com.ams.presentacion.user;
 
 import java.util.List;
 
@@ -14,5 +14,5 @@ public interface IUserService {
 
 	UserDto update(UserDto dto);
 
-	UserDto findByUsername(String username);
+	User findByUsername(String username);
 }

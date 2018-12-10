@@ -98,6 +98,12 @@
 			<scope>test</scope> </dependency> -->
 
 		<!-- Fin de librerias de logging -->
+		<!-- Libreria H2 para base de datos embebida en Java -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -1,4 +1,4 @@
-package com.ams.presentacion.User;
+package com.ams.presentacion.user;
 
 import java.util.Date;
 
