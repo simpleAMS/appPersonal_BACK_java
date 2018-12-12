@@ -12,7 +12,7 @@ public class UserDto {
 
 	private Date lastConnection;
 
-	private int connectionNumber;
+	private Integer connectionNumber;
 
 	public int getId() {
 		return id;
@@ -38,7 +38,7 @@ public class UserDto {
 		this.password = password;
 	}
 
-	public int getConnectionNumber() {
+	public Integer getConnectionNumber() {
 		return connectionNumber;
 	}
 

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.PostConstruct;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.ParseException;
@@ -19,17 +20,20 @@ import org.springframework.stereotype.Service;
 public class UserService implements IUserService, UserDetailsService {
 
 	@Autowired
-	ModelMapper modelMapper;
+	ModelMapper mapper;
 	@Autowired
 	UserDao userDao;
-
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
-	
+
+	@PostConstruct
+	private void configureMapping() {
+		mapper.getConfiguration().isSkipNullEnabled();
+	}
+
 	@Override
 	public UserDto save(UserDto dto) {
-		//Encrypt password
+		// Encrypt password
 		dto.setPassword(passwordEncoder.encode(dto.getPassword()));
 		User entity = convertToEntity(dto);
 		entity = userDao.save(entity);
@@ -56,7 +60,14 @@ public class UserService implements IUserService, UserDetailsService {
 	@Override
 	public UserDto findById(int id) {
 		Optional<User> optionalDto = userDao.findById(id);
-		return optionalDto.isPresent() ? convertToDto(optionalDto.get()) : null;
+		UserDto dto = null;
+		try {
+			dto = optionalDto.isPresent() ? convertToDto(optionalDto.get()) : null;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return dto;
 	}
 
 	@Override
@@ -74,8 +85,14 @@ public class UserService implements IUserService, UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<User> optionalUser = userDao.findByUsername(username);
-		User user = optionalUser.isPresent() ? optionalUser.get() : null;
+		User user;
+		Optional<User> optionalUser = null;
+		try {
+			optionalUser = userDao.findByUsername(username);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		user = optionalUser.isPresent() ? optionalUser.get() : null;
 		if (user == null) {
 			throw new UsernameNotFoundException("Invalid username or password.");
 		}
@@ -88,13 +105,26 @@ public class UserService implements IUserService, UserDetailsService {
 		return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
 	}
 
+	// Clases para mapeo
+
 	private UserDto convertToDto(User user) {
-		UserDto userDto = modelMapper.map(user, UserDto.class);
+		UserDto userDto = null;
+		try {
+			userDto = mapper.map(user, UserDto.class);
+		} catch (Exception e) {
+			System.out.println("Error " + e);
+		}
+
 		return userDto;
 	}
 
-	private User convertToEntity(UserDto postDto) throws ParseException {
-		User user = modelMapper.map(postDto, User.class);
+	private User convertToEntity(UserDto dto) throws ParseException {
+		User user = null;
+		try {
+			user = mapper.map(dto, User.class);
+		} catch (Exception e) {
+			System.out.println("Error " + e);
+		}
 		return user;
 	}
 

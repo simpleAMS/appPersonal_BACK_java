@@ -65,7 +65,7 @@ public class User {
 		this.lastConnection = lastConnection;
 	}
 
-	public int getConnectionNumber() {
+	public Integer getConnectionNumber() {
 		return connectionNumber;
 	}
 

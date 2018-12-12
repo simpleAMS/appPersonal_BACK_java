@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.PostConstruct;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.ParseException;
@@ -13,10 +15,16 @@ import org.springframework.stereotype.Service;
 public class TechnologyService implements ITechnologyService {
 
 	@Autowired
-	TechnologyDao technologyDao;
+	ModelMapper mapper;
+	
 	@Autowired
-	ModelMapper modelMapper;
+	TechnologyDao technologyDao;
 
+	@PostConstruct
+	private void configureMapping() {
+		mapper.getConfiguration().isSkipNullEnabled();
+	}
+	
 	@Override
 	public TechnologyDto save(TechnologyDto dto) {
 		Technology entity = convertToEntity(dto);
@@ -57,12 +65,12 @@ public class TechnologyService implements ITechnologyService {
 	
 	//Conversion dto/entity
 	private TechnologyDto convertToDto(Technology entity) {
-		TechnologyDto dto = modelMapper.map(entity, TechnologyDto.class);
+		TechnologyDto dto = mapper.map(entity, TechnologyDto.class);
 		return dto;
 	}
 
 	private Technology convertToEntity(TechnologyDto dto) throws ParseException {
-		Technology entity = modelMapper.map(dto, Technology.class);
+		Technology entity = mapper.map(dto, Technology.class);
 
 		return entity;
 	}
