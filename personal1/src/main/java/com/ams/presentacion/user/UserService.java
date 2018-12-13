@@ -54,7 +54,6 @@ public class UserService implements IUserService, UserDetailsService {
 	@Override
 	public void delete(int id) {
 		userDao.deleteById(id);
-
 	}
 
 	@Override
