@@ -1,6 +1,7 @@
 package com.ams.presentacion.authentication;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -36,6 +37,6 @@ public class AuthenticationController {
 					new UsernamePasswordAuthenticationToken(appUser.getUsername(), appUser.getPassword()));
 		final User user = userService.findByUsername(appUser.getUsername());
 		final String token = jwtTokenUtil.generateToken(user);
-		return new RequestResponse(200, "success", new AuthToken(token, user.getUsername()));
+		return new RequestResponse(HttpStatus.OK, "success", new AuthToken(token, user.getUsername()));
 	}
 }

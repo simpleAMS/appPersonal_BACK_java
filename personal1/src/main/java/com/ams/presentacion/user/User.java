@@ -41,6 +41,14 @@ public class User {
 		this.connectionNumber = connectionNumber;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public String getUsername() {
 		return username;
 	}
@@ -69,7 +77,7 @@ public class User {
 		return connectionNumber;
 	}
 
-	public void setConnectionNumber(int connectionNumber) {
+	public void setConnectionNumber(Integer connectionNumber) {
 		this.connectionNumber = connectionNumber;
 	}
 	

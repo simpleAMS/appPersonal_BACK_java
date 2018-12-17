@@ -16,6 +16,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.ams.presentacion.user.exception.UserNotFounException;
+
+import javassist.NotFoundException;
+
 @Service(value = "userService")
 public class UserService implements IUserService, UserDetailsService {
 
@@ -32,12 +36,20 @@ public class UserService implements IUserService, UserDetailsService {
 	}
 
 	@Override
-	public UserDto save(UserDto dto) {
-		// Encrypt password
-		dto.setPassword(passwordEncoder.encode(dto.getPassword()));
-		User entity = convertToEntity(dto);
-		entity = userDao.save(entity);
-		return convertToDto(entity);
+	public UserDto findById(int id) throws NotFoundException {
+		Optional<User> optional = userDao.findById(id);
+		UserDto dto = null;
+		User entity = optional.isPresent() ? optional.get() : null;
+		if (entity == null) {
+			throw new UserNotFounException((long) id);
+		}
+		try {
+			dto = convertToDto(entity);
+		} catch (Exception e) {
+			throw e;
+			// log
+		}
+		return dto;
 	}
 
 	@Override
@@ -52,21 +64,17 @@ public class UserService implements IUserService, UserDetailsService {
 	}
 
 	@Override
-	public void delete(int id) {
-		userDao.deleteById(id);
+	public UserDto save(UserDto dto) {
+		// Encrypt password
+		dto.setPassword(passwordEncoder.encode(dto.getPassword()));
+		User entity = convertToEntity(dto);
+		entity = userDao.save(entity);
+		return convertToDto(entity);
 	}
 
 	@Override
-	public UserDto findById(int id) {
-		Optional<User> optionalDto = userDao.findById(id);
-		UserDto dto = null;
-		try {
-			dto = optionalDto.isPresent() ? convertToDto(optionalDto.get()) : null;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return dto;
+	public void delete(int id) {
+		userDao.deleteById(id);
 	}
 
 	@Override

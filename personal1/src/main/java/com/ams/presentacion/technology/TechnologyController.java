@@ -3,8 +3,9 @@ package com.ams.presentacion.technology;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import com.ams.presentacion.common.ControllerMessages;
 import com.ams.presentacion.common.RequestResponse;
-import com.ams.presentacion.user.UserDto;
 
 @RestController
 @RequestMapping("/technologies")
@@ -25,12 +26,12 @@ public class TechnologyController {
 
 	@GetMapping("/{id}")
 	RequestResponse getTechnologyById(@PathVariable int id) {
-		return new RequestResponse(200, "Usuario: ", technologyService.findById(id));
+		return new RequestResponse(HttpStatus.OK, ControllerMessages.CREATED, technologyService.findById(id));
 	}
 
 	@GetMapping("")
 	RequestResponse getTechnologies() {
-		return new RequestResponse(200, "Usuarios: ", technologyService.findAll());
+		return new RequestResponse(HttpStatus.OK, ControllerMessages.GET, technologyService.findAll());
 	}
 
 	@PostMapping()
@@ -40,18 +41,18 @@ public class TechnologyController {
 			responseDto = technologyService.save(dto);
 		} catch (Exception e) {
 		}
-		return new RequestResponse(HttpStatus.CREATED, "Registro añadido: ", responseDto);
+		return new RequestResponse(HttpStatus.CREATED, ControllerMessages.CREATED, responseDto);
 	}
 
 	@PutMapping()
 	public RequestResponse updateUser(@RequestBody TechnologyDto dto) {
-		return new RequestResponse(200, "Usuario: ", technologyService.update(dto));
+		return new RequestResponse(HttpStatus.OK, ControllerMessages.UPDATED, technologyService.update(dto));
 	}
 
 	@DeleteMapping("/{id}")
 	RequestResponse deleteTechnology(@PathVariable int id) {
 		technologyService.delete(id);
-		return new RequestResponse(200, "Registro eliminado: ", id);
+		return new RequestResponse(HttpStatus.OK, ControllerMessages.DELETED, id);
 	}
 
 }

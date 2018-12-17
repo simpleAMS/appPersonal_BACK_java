@@ -2,6 +2,8 @@ package com.ams.presentacion.user;
 
 import java.util.List;
 
+import javassist.NotFoundException;
+
 public interface IUserService {
 
 	UserDto save(UserDto dto);
@@ -10,7 +12,7 @@ public interface IUserService {
 
 	void delete(int id);
 
-	UserDto findById(int id);
+	UserDto findById(int id) throws NotFoundException;
 
 	UserDto update(UserDto dto);
 
