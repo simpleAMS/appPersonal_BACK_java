@@ -2,16 +2,19 @@ package com.ams.presentacion.user;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 public class UserDto {
-
+	
+	@NotNull
 	private int id;
-
+	@NotNull
 	private String username;
-
+	@NotNull
 	private String password;
-
+	
 	private Date lastConnection;
-
+	
 	private Integer connectionNumber;
 
 	public int getId() {

@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.ams.presentacion.user.exception.UserNotFounException;
+import com.ams.presentacion.user.exception.UserNotFoundException;
 
 import javassist.NotFoundException;
 
@@ -41,7 +41,7 @@ public class UserService implements IUserService, UserDetailsService {
 		UserDto dto = null;
 		User entity = optional.isPresent() ? optional.get() : null;
 		if (entity == null) {
-			throw new UserNotFounException((long) id);
+			throw new UserNotFoundException((long) id);
 		}
 		try {
 			dto = convertToDto(entity);
@@ -68,7 +68,12 @@ public class UserService implements IUserService, UserDetailsService {
 		// Encrypt password
 		dto.setPassword(passwordEncoder.encode(dto.getPassword()));
 		User entity = convertToEntity(dto);
-		entity = userDao.save(entity);
+		try {
+			entity = userDao.save(entity);
+		} catch (Exception e) {
+			throw e;
+		}
+
 		return convertToDto(entity);
 	}
 
@@ -80,7 +85,12 @@ public class UserService implements IUserService, UserDetailsService {
 	@Override
 	public UserDto update(UserDto dto) {
 		User entity = convertToEntity(dto);
-		userDao.save(entity);
+		try {
+			userDao.save(entity);
+		} catch (Exception e) {
+			throw e;
+		}
+
 		return dto;
 	}
 

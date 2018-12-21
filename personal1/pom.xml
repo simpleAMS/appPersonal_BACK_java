@@ -91,13 +91,24 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.4</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-jwt 
 			<dependency> <groupId>org.springframework.security</groupId> <artifactId>spring-security-jwt</artifactId> 
 			<version>1.0.9.RELEASE</version> </dependency> Librerias para logging <dependency> 
 			<groupId>ch.qos.logback</groupId> <artifactId>logback-core</artifactId> </dependency> 
 			<dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-api</artifactId> 
 			<scope>test</scope> </dependency> -->
+
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 		<!-- Fin de librerias de logging -->
 		<!-- Libreria H2 para base de datos embebida en Java -->
